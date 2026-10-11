@@ -1,0 +1,62 @@
+name: Publish uploaded Manasikara package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'release-input/Manasikara-v2.0.1.wox'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: manasikara-uploaded-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Validate uploaded archive and recover its audio
+        run: python3 tools/restore_and_publish.py release-input/Manasikara-v2.0.1.wox
+      - name: Test the complete plugin source
+        run: node --test tests/regression.test.js
+      - name: Package tested plugin
+        run: python3 tools/package.py --chime brass --meditation mudita --finish bowl
+      - name: Verify public release asset and media count
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          p = Path('deliverables/Manasikara-v2.0.1.wox')
+          assert p.is_file() and p.stat().st_size > 1_000_000
+          with ZipFile(p) as z:
+              assert z.testzip() is None
+              assert len([n for n in z.namelist() if n.endswith('.wav')]) == 52
+              assert 'sounds/mudita/original.mp3' in z.namelist()
+          print('Verified:', p, p.stat().st_size, 'bytes')
+          PY
+      - name: Publish GitHub release from the tested asset
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REF_NAME: v2.0.1
+        run: node tools/publish_release.js
+      - name: Restore sounds to the repository for future builds
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- src/sounds/
+          if ! git diff --cached --quiet; then
+            git commit -m "Restore all original Manasikara sounds from tested release"
+            git push origin HEAD:main
+          fi
