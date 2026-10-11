@@ -46,11 +46,6 @@ jobs:
               assert 'sounds/mudita/original.mp3' in z.namelist()
           print('Verified:', p, p.stat().st_size, 'bytes')
           PY
-      - name: Publish GitHub release from the tested asset
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          GITHUB_REF_NAME: v2.0.1
-        run: node tools/publish_release.js
       - name: Restore sounds to the repository for future builds
         run: |
           git config user.name "github-actions[bot]"
@@ -60,3 +55,8 @@ jobs:
             git commit -m "Restore all original Manasikara sounds from tested release"
             git push origin HEAD:main
           fi
+      - name: Publish GitHub release from the tested asset
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REF_NAME: v2.0.1
+        run: node tools/publish_release.js
