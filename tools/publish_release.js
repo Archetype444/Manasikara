@@ -6,7 +6,7 @@ const root=path.resolve(__dirname,'..');
 const metadata=JSON.parse(fs.readFileSync(path.join(root,'src/plugin.json'),'utf8'));
 const repository=process.env.GITHUB_REPOSITORY;
 const token=process.env.GITHUB_TOKEN;
-const tag=process.env.GITHUB_REF_NAME;
+const tag=process.env.RELEASE_TAG||process.env.GITHUB_REF_NAME;
 if(!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repository||'')||!token)throw Error('GitHub workflow credentials are required.');
 if(tag!=='v'+metadata.Version)throw Error('The tag must match the plugin metadata version.');
 const base='https://api.github.com/repos/'+repository;
