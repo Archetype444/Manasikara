@@ -1,7 +1,6 @@
 # Wox.Plugin.Manasikāra
 
-Continuous focus and deep focus, three Pomodoro variants, meditation and timers
-for Wox. The current package is version 2.0.1.
+Made by AI but a bloody good plugin. this is for those, like me, who get distracted easily AND like to meditate. Have fun!
 
 ## Install and use
 
