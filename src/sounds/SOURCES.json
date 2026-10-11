@@ -1,0 +1,29 @@
+[
+  {
+    "id": "bowl",
+    "title": "s-light singing bowl",
+    "author": "s-light",
+    "page": "https://freesound.org/people/s-light/sounds/411486/",
+    "preview": "https://cdn.freesound.org/previews/411/411486_2154914-hq.mp3",
+    "license": "CC0-1.0",
+    "bytes": 1124400
+  },
+  {
+    "id": "brass",
+    "title": "Monkay singing bowl",
+    "author": "Monkay",
+    "page": "https://freesound.org/people/Monkay/sounds/48325/",
+    "preview": "https://cdn.freesound.org/previews/48/48325_557478-hq.mp3",
+    "license": "CC0-1.0",
+    "bytes": 1114174
+  },
+  {
+    "id": "resonance",
+    "title": "steffcaffrey singing bowl",
+    "author": "steffcaffrey",
+    "page": "https://freesound.org/people/steffcaffrey/sounds/449950/",
+    "preview": "https://cdn.freesound.org/previews/449/449950_1844073-hq.mp3",
+    "license": "CC0-1.0",
+    "bytes": 1091315
+  }
+]

@@ -1,0 +1,35 @@
+Manasikāra sound library
+
+All three source recordings are dedicated to the public domain under CC0 1.0.
+License: https://creativecommons.org/publicdomain/zero/1.0/
+
+s-light singing bowl
+By s-light
+https://freesound.org/people/s-light/sounds/411486/
+Source: public high-quality MP3 preview
+License: CC0 1.0
+
+Monkay singing bowl
+By Monkay
+https://freesound.org/people/Monkay/sounds/48325/
+Source: public high-quality MP3 preview
+License: CC0 1.0
+
+steffcaffrey singing bowl
+By steffcaffrey
+https://freesound.org/people/steffcaffrey/sounds/449950/
+Source: public high-quality MP3 preview
+License: CC0 1.0
+
+Adaptations: trimmed, converted to mono PCM WAV, pitch shifted, filtered, level matched,
+faded and sequenced. These adaptations are also released under CC0 1.0.
+Chimes ascend two octaves of a major scale over 15 clock-minute boundaries.
+Meditation endings fade in over four seconds and fade out over seven.
+Timer endings use a short rising major arpeggio.
+
+User-selected meditation ending
+Mudita Bell - Melodic Mirth
+Source: Mudita_Bell_-_Melodic_Mirth_alarm_sound.mp3, supplied by the user.
+Full recording preserved at its original pitch; converted to stereo PCM with a
+four-second fade-in. The CC0 notices above apply only to the three bowl sources
+and their adaptations, not to this user-supplied recording. See mudita/SOURCE.json.

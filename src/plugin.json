@@ -1,0 +1,336 @@
+{
+  "Id": "ad468a1d-fdb5-4fb0-88a9-d6778bb11d96",
+  "Name": "Wox.Plugin.Manasikāra",
+  "Author": "Archetype444",
+  "Version": "2.0.1",
+  "MinWoxVersion": "2.4.5",
+  "Runtime": "nodejs",
+  "Description": "Manasikāra provides continuous focus, continuous deep focus, three Pomodoro modes, meditation and countdown timers. Type mana to see the current session, available modes and controls. The previous zen keyword is now mana.\n\nCONTINUOUS FOCUS — Type focus and press Enter. It runs until you stop it, without breaks or a work-duration limit. Gentle chimes rise through 15 pitches on successive system-minute boundaries. At the fifteenth minute, Wox opens with l followed by a space so you can record what you are doing through your existing capture plugin. The next 15-minute cycle starts automatically, whether you submit or dismiss the log prompt.\n\nCONTINUOUS DEEP FOCUS — Type deep and press Enter. It runs until stopped, without breaks or logging. The first clock-minute boundary gives the lowest cue. Chimes then use pitches 3, 6, 9, 12 and 15 at the third, sixth, ninth, twelfth and fifteenth clock minutes. They continue every three minutes, repeating the ascending scale. The highest pitch remains gentle.\n\nPOMODORO — Type pom or pomodoro, optionally followed by a work duration, and select a variant. The first result is plain Pomodoro: no minute chimes and no log prompts. Focus Pomodoro has minute chimes and opens the log prompt at the beginning and end of each work interval, including automatically started work intervals; it does not open a log prompt at minute 15 within a work interval. Deep Pomodoro uses the same three-minute chime pattern as continuous deep focus and never opens a log prompt. Enter pom focus or pom deep to select a variant directly. The variant may appear before or after the duration. Focus pom and deep pom also work. Work intervals alternate with short breaks; a long break follows the configured number of completed work intervals. Breaks have no chimes or logs. A custom work duration and selected variant carry through the cycle. Automatic break and work starts follow your Wox plugin settings; otherwise the next interval is ready in mana. Continuous focus and deep sessions never turn into Pomodoros.\n\nMEDITATION AND TIMER — Type med for meditation or timer for a countdown. Add a duration or an until-time, then press Enter. These modes stay quiet during the session and play their respective ending sound once. Compact entries such as med10 and timer30s work, as do pom25 and pom25 deep. A bare med, timer or pom uses its configured duration.\n\nDURATIONS — Bare numbers mean minutes. Seconds, minutes, hours, decimal values, English number words, fractions and mixed units are accepted, including 30 seconds, an hour and a half, 1h30m and two minutes and thirty seconds. Clock-style durations use MM:SS or HH:MM:SS. Until 5pm, until 17:30, until noon and until tomorrow at 5pm use your computer’s local time. An unqualified clock time chooses its next occurrence; an explicitly past time today is rejected. Countdown durations range from one second to seven days. Focus and deep are indefinite when entered alone; adding a duration makes a single bounded session with no automatic break.\n\nCONTROLS — mana shows elapsed time for indefinite sessions and remaining time for countdowns. Use mana pause, mana resume or mana stop; Stop also silences any sound still playing. Use mana +5, mana +30 seconds or mana extend <duration> to add time to a countdown. Mana skip ends a Pomodoro or break early and prepares the next interval without starting it or counting a completed work interval. Starting another mode replaces the current session. Only one session runs at a time. Enter on a running session pauses it; Enter on a paused session resumes it. Other actions are available from the Wox action menu. Mana help provides the operating guide.\n\nCHIMES AND LOGGING — Chimes align with system-minute boundaries, never a fixed number of seconds past each minute. Each start or resume begins a new pitch cycle at the next minute boundary. Missed chimes after sleep are skipped instead of replayed. When an ending coincides with a chime, the ending takes priority. Log prompts use the existing l capture shortcut and do not write a note themselves. Type your log and press Enter, or dismiss with Escape; neither changes the running session. If Wox is already open, a prompt waits up to one minute so it does not replace your current query. Stopping or replacing a session cancels its waiting prompts. Log prompts can be disabled in Wox plugin settings.\n\nSOUNDS AND SETTINGS — The selected minute chime is Brass bowl, the meditation ending is your supplied Mudita Bell - Melodic Mirth recording with a gradual fade-in, and the timer/Pomodoro/break ending is Soft bowl. Choose sounds, volume, default durations, break lengths and automatic transitions in Wox Settings > Plugins > Wox.Plugin.Manasikāra. A volume of zero mutes that sound category. Mana sounds is available for listening to the bundled choices. There is no daily progress tracking or sample task text.\n\nRUNNING AND UPGRADING — Wox must remain running for chimes, sounds and log prompts; Obsidian is not needed for the timer itself. The separate capture plugin handles l. Sessions are saved locally and restored after a Wox restart. A countdown that ended while Wox was closed is cleared silently. This package updates the existing ZenFlow plugin under its original ID, preserving compatible settings and sessions. It does not alter the TaskNotes capture plugin or other plugins. Requires Wox 2.4.5 or newer and the Node.js plugin runtime.",
+  "Icon": "svg:<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g fill='none' stroke='var(--wox-theme-icon-color)' stroke-width='1.6' stroke-linecap='round'><circle cx='12' cy='12' r='9'/><path d='M12 6v6l4 2'/></g></svg>",
+  "TriggerKeywords": [
+    "mana",
+    "focus",
+    "deep",
+    "pom",
+    "pomodoro",
+    "med",
+    "timer",
+    "*"
+  ],
+  "SupportedOS": [
+    "windows",
+    "linux",
+    "darwin"
+  ],
+  "Features": [
+    {
+      "Name": "mru",
+      "Params": {
+        "HashBy": "identityKey"
+      }
+    }
+  ],
+  "SettingDefinitions": [
+    {
+      "Type": "head",
+      "Value": {
+        "Content": "Timers"
+      }
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "focusMinutes",
+        "Label": "Pomodoro work minutes",
+        "DefaultValue": "25",
+        "Tooltip": "Default work interval for all Pomodoro variants. Continuous focus and deep have no time limit.",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": false,
+              "IsFloat": true
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "meditationMinutes",
+        "Label": "Meditation minutes",
+        "DefaultValue": "10",
+        "Tooltip": "",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": false,
+              "IsFloat": true
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "timerMinutes",
+        "Label": "Timer minutes",
+        "DefaultValue": "10",
+        "Tooltip": "",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": false,
+              "IsFloat": true
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "shortBreakMinutes",
+        "Label": "Short break minutes",
+        "DefaultValue": "5",
+        "Tooltip": "",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": false,
+              "IsFloat": true
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "longBreakMinutes",
+        "Label": "Long break minutes",
+        "DefaultValue": "15",
+        "Tooltip": "",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": false,
+              "IsFloat": true
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "rounds",
+        "Label": "Pomodoros before a long break",
+        "DefaultValue": "4",
+        "Tooltip": "",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "checkbox",
+      "Value": {
+        "Key": "autoBreak",
+        "Label": "Automatically start breaks",
+        "DefaultValue": "true"
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "checkbox",
+      "Value": {
+        "Key": "autoFocus",
+        "Label": "Automatically start Pomodoros after breaks",
+        "DefaultValue": "false"
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "head",
+      "Value": {
+        "Content": "Log prompts"
+      }
+    },
+    {
+      "Type": "checkbox",
+      "Value": {
+        "Key": "checkIn",
+        "Label": "Enable activity log prompts",
+        "DefaultValue": "true",
+        "Tooltip": "Focus: every 15 clock minutes. Focus Pomodoro: beginning and end of work. Opens your existing l capture shortcut and waits briefly if Wox is already in use."
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "head",
+      "Value": {
+        "Content": "Sounds"
+      }
+    },
+    {
+      "Type": "select",
+      "Value": {
+        "Key": "chimeSound",
+        "Label": "Minute chime",
+        "DefaultValue": "brass",
+        "Options": [
+          {
+            "Label": "Soft bowl",
+            "Value": "bowl"
+          },
+          {
+            "Label": "Brass bowl",
+            "Value": "brass"
+          },
+          {
+            "Label": "Resonant bowl",
+            "Value": "resonance"
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "chimeVolume",
+        "Label": "Chime volume",
+        "DefaultValue": "35",
+        "Tooltip": "0–100. The pitch rises through 15 clock minutes, then repeats.",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "select",
+      "Value": {
+        "Key": "meditationSound",
+        "Label": "Meditation ending",
+        "DefaultValue": "mudita",
+        "Options": [
+          {
+            "Label": "Soft bowl",
+            "Value": "bowl"
+          },
+          {
+            "Label": "Brass bowl",
+            "Value": "brass"
+          },
+          {
+            "Label": "Resonant bowl",
+            "Value": "resonance"
+          },
+          {
+            "Label": "Mudita Bell - Melodic Mirth",
+            "Value": "mudita"
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "meditationVolume",
+        "Label": "Meditation ending volume",
+        "DefaultValue": "65",
+        "Tooltip": "0–100.",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "select",
+      "Value": {
+        "Key": "finishSound",
+        "Label": "Timer and Pomodoro ending",
+        "DefaultValue": "bowl",
+        "Options": [
+          {
+            "Label": "Soft bowl",
+            "Value": "bowl"
+          },
+          {
+            "Label": "Brass bowl",
+            "Value": "brass"
+          },
+          {
+            "Label": "Resonant bowl",
+            "Value": "resonance"
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "finishVolume",
+        "Label": "Timer ending volume",
+        "DefaultValue": "65",
+        "Tooltip": "0–100.",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      },
+      "IsPlatformSpecific": false
+    },
+    {
+      "Type": "checkbox",
+      "Value": {
+        "Key": "notifications",
+        "Label": "Notify when an interval ends",
+        "DefaultValue": "true"
+      },
+      "IsPlatformSpecific": false
+    }
+  ],
+  "Entry": "index.js",
+  "Website": "https://github.com/Archetype444/Wox.Plugin.Manasikara"
+}

@@ -1,0 +1,173 @@
+{
+  "Id": "ad468a1d-fdb5-4fb0-88a9-d6778bb11d96",
+  "Name": "ZenFlow — Focus & Meditation",
+  "Author": "ZenFlow",
+  "Version": "1.0.1",
+  "MinWoxVersion": "2.4.5",
+  "Runtime": "nodejs",
+  "Description": "A beautifully simple, keyboard-first Pomodoro and meditation timer, with smart breaks and mindful progress.",
+  "Icon": "svg:<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='#133d38'/><circle cx='32' cy='31' r='21' fill='none' stroke='#82d5ba' stroke-width='4'/><path d='M32 15v16l11 7' fill='none' stroke='#f4dba7' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/><circle cx='32' cy='31' r='2.6' fill='#f4dba7'/></svg>",
+  "TriggerKeywords": [
+    "zen"
+  ],
+  "SupportedOS": [
+    "windows",
+    "linux",
+    "darwin"
+  ],
+  "Features": [
+    {
+      "Name": "mru",
+      "Params": {
+        "HashBy": "identityKey"
+      }
+    }
+  ],
+  "SettingDefinitions": [
+    {
+      "Type": "head",
+      "Value": {
+        "Content": "Pomodoro"
+      }
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "focusMinutes",
+        "Label": "Focus minutes",
+        "DefaultValue": "25",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "shortBreakMinutes",
+        "Label": "Short break minutes",
+        "DefaultValue": "5",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "longBreakMinutes",
+        "Label": "Long break minutes",
+        "DefaultValue": "15",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "rounds",
+        "Label": "Focus sessions before a long break",
+        "DefaultValue": "4",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "head",
+      "Value": {
+        "Content": "Meditation & rhythm"
+      }
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "meditationMinutes",
+        "Label": "Meditation minutes",
+        "DefaultValue": "10",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "checkbox",
+      "Value": {
+        "Key": "autoBreak",
+        "Label": "Automatically start breaks",
+        "DefaultValue": "true"
+      }
+    },
+    {
+      "Type": "checkbox",
+      "Value": {
+        "Key": "autoFocus",
+        "Label": "Automatically start focus after breaks",
+        "DefaultValue": "false"
+      }
+    },
+    {
+      "Type": "head",
+      "Value": {
+        "Content": "Gentle accountability"
+      }
+    },
+    {
+      "Type": "checkbox",
+      "Value": {
+        "Key": "notifications",
+        "Label": "Notify when a session ends",
+        "DefaultValue": "true"
+      }
+    },
+    {
+      "Type": "textbox",
+      "Value": {
+        "Key": "dailyGoal",
+        "Label": "Daily focus-session goal",
+        "DefaultValue": "4",
+        "Validators": [
+          {
+            "Type": "is_number",
+            "Value": {
+              "IsInteger": true,
+              "IsFloat": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "Entry": "index.js"
+}
